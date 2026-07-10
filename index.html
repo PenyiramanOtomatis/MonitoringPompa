@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monitoring Sistem Pompa</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="src/css/style.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">
+      <div class="logo-icon">
+        <svg width="20" height="20" fill="none" viewBox="0 0 24 24"
+             stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83
+                   M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
+        </svg>
+      </div>
+      Monitoring Sistem Pompa
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main>
+
+    <!-- Parameter Sensor -->
+    <div class="section-title">Parameter Sensor</div>
+    <div class="metrics-row">
+
+      <div class="card">
+        <div class="metric-label">
+          <span class="metric-icon">⚡</span>Tegangan
+        </div>
+        <div class="metric-val" id="val-v">—<span class="unit">V</span></div>
+        <div class="metric-sub">Nominal 220V AC</div>
+      </div>
+
+      <div class="card">
+        <div class="metric-label">
+          <span class="metric-icon">〰</span>Arus (Ipump)
+        </div>
+        <div class="metric-val" id="val-a">—<span class="unit">A</span></div>
+        <div class="metric-sub">Sensor CT</div>
+      </div>
+
+      <div class="card">
+        <div class="metric-label">
+          <span class="metric-icon">⚙</span>Daya Pompa
+        </div>
+        <div class="metric-val" id="val-p">—<span class="unit">W</span></div>
+        <div class="metric-sub">P = V × I</div>
+      </div>
+
+      <div class="card">
+        <div class="metric-label">
+          <span class="metric-icon">🔋</span>Estimasi DoD Baterai
+        </div>
+        <div class="metric-val" id="val-bat">—<span class="unit">%</span></div>
+        <div class="batt-row">
+          <div class="batt-track">
+            <div class="batt-fill" id="batt-fill" style="width: 0%"></div>
+          </div>
+          <div class="batt-pct" id="batt-pct">0%</div>
+        </div>
+        <div class="badge aman" id="batt-badge">● AMAN</div>
+      </div>
+
+    </div>
+
+    <!-- Status Valve -->
+    <div class="section-title">Status Valve</div>
+    <div class="valve-row">
+
+      <div class="valve-card" id="vc1">
+        <div class="valve-title">Valve 1</div>
+        <svg class="valve-art" id="vs1"
+             viewBox="0 0 170 116" xmlns="http://www.w3.org/2000/svg"></svg>
+        <div class="valve-footer">
+          <div class="valve-state">Status Valve 1</div>
+          <div class="valve-badge" id="vb1">—</div>
+        </div>
+      </div>
+
+      <div class="valve-card" id="vc2">
+        <div class="valve-title">Valve 2</div>
+        <svg class="valve-art" id="vs2"
+             viewBox="0 0 170 116" xmlns="http://www.w3.org/2000/svg"></svg>
+        <div class="valve-footer">
+          <div class="valve-state">Status Valve 2</div>
+          <div class="valve-badge" id="vb2">—</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-ts" id="ts">Menunggu data...</div>
+
+  </main>
+
+  <!-- JavaScript -->
+  <script type="module" src="src/js/app.js"></script>
+
+</body>
+</html>
