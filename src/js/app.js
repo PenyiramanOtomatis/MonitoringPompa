@@ -89,6 +89,67 @@ function buildValveSVG(isOpen) {
 }
 
 // ════════════════════════════════════════════════
+// SVG SOIL PROBE
+// ════════════════════════════════════════════════
+
+function soilStatusFromPct(pct) {
+  if (pct < 40) return 'kering';
+  if (pct <= 70) return 'lembab';
+  return 'basah';
+}
+
+function soilColor(status) {
+  if (status === 'kering') return '#dc2626';
+  if (status === 'lembab') return '#d97706';
+  return '#16a34a';
+}
+
+function buildSoilSVG(pct) {
+  const status = soilStatusFromPct(pct);
+  const color  = soilColor(status);
+  const clampedPct = Math.max(0, Math.min(100, pct));
+
+  // level gelombang kelembapan: 1 (kering) - 2 (lembab) - 3 (basah)
+  const level = clampedPct < 40 ? 1 : (clampedPct <= 70 ? 2 : 3);
+  const waveOpacity = (i) => (i <= level ? 0.9 : 0.15);
+
+  return `
+    <!-- tanah -->
+    <ellipse cx="85" cy="100" rx="58" ry="10" fill="#a67c52" opacity=".22"/>
+    <ellipse cx="85" cy="98"  rx="50" ry="8"  fill="#8b6f47" opacity=".3"/>
+
+    <!-- gelombang kelembapan (radiasi dari ujung prong) -->
+    <g fill="none" stroke-linecap="round">
+      <path d="M52,92 Q85,86 118,92" stroke="${color}" stroke-width="2.6" opacity="${waveOpacity(1)}"/>
+      <path d="M46,100 Q85,92 124,100" stroke="${color}" stroke-width="2.6" opacity="${waveOpacity(2)}"/>
+      <path d="M40,108 Q85,98 130,108" stroke="${color}" stroke-width="2.6" opacity="${waveOpacity(3)}"/>
+    </g>
+
+    <!-- kaki / prong sensor -->
+    <path d="M74,40 L69,98" stroke="#4b5563" stroke-width="6" stroke-linecap="round"/>
+    <path d="M96,40 L101,98" stroke="#4b5563" stroke-width="6" stroke-linecap="round"/>
+    <path d="M74,40 L69,98" stroke="#9ca3af" stroke-width="2.6" stroke-linecap="round"/>
+    <path d="M96,40 L101,98" stroke="#9ca3af" stroke-width="2.6" stroke-linecap="round"/>
+    <circle cx="69" cy="98" r="2.6" fill="${color}"/>
+    <circle cx="101" cy="98" r="2.6" fill="${color}"/>
+
+    <!-- kepala modul sensor -->
+    <rect x="60" y="8" width="50" height="36" rx="7" fill="#a0a8b8"/>
+    <rect x="62" y="7" width="46" height="36" rx="6" fill="#d1d5df"/>
+    <rect x="64" y="9"  width="42" height="10" rx="4" fill="white" opacity=".3"/>
+    <rect x="70" y="17" width="30" height="18" rx="2.5" fill="#1f2937"/>
+    <rect x="70" y="17" width="30" height="18" rx="2.5" fill="none" stroke="#374151" stroke-width="1"/>
+    <rect x="74" y="21" width="22" height="10" rx="1.5" fill="${color}" opacity=".55"/>
+    <circle cx="67" cy="12" r="1.6" fill="#7a8398"/>
+    <circle cx="103" cy="12" r="1.6" fill="#7a8398"/>
+
+    <!-- label persen kecil di badan modul -->
+    <text x="85" y="30" font-family="'DM Mono', monospace" font-size="7"
+          fill="${color}" text-anchor="middle" font-weight="600">${clampedPct.toFixed(0)}%</text>
+  `;
+}
+
+// ════════════════════════════════════════════════
 // UPDATE UI
 // ════════════════════════════════════════════════
 
@@ -101,6 +162,19 @@ export function setValve(n, isOpen) {
   card.className  = 'valve-card ' + (isOpen ? 'open' : 'closed');
   badge.className = 'valve-badge ' + (isOpen ? 'open' : 'closed');
   badge.textContent = isOpen ? 'TERBUKA' : 'TERTUTUP';
+}
+
+export function setSoilSensor(id, pct) {
+  const status = soilStatusFromPct(pct);
+
+  document.getElementById('ss' + id).innerHTML = buildSoilSVG(pct);
+
+  const card  = document.getElementById('sc' + id);
+  const badge = document.getElementById('sb' + id);
+
+  card.className  = 'soil-card ' + status;
+  badge.className = 'soil-badge ' + status;
+  badge.textContent = pct.toFixed(0) + '% · ' + status.toUpperCase();
 }
 
 export function updateMetrics(d) {
@@ -143,6 +217,9 @@ function showConnected() {
 // INIT
 // ════════════════════════════════════════════════
 
+// Render awal soil (0% sampai data masuk)
+['1', '2', 'Avg'].forEach(id => setSoilSensor(id, 0));
+
 // Render awal valve (semua tertutup sampai data masuk)
 [1, 2].forEach(n => setValve(n, false));
 showConnecting();
@@ -151,4 +228,8 @@ showConnecting();
 startFirebaseListener((data) => {
   updateMetrics(data);
   data.valve.forEach((isOpen, i) => setValve(i + 1, isOpen));
+
+  setSoilSensor('1', data.soil1);
+  setSoilSensor('2', data.soil2);
+  setSoilSensor('Avg', data.soilAvg);
 });

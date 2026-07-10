@@ -182,6 +182,71 @@ main {
 .badge.aman    { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
 .badge.waspada { background: #fffbeb;         color: var(--yellow); border: 1px solid #fde68a; }
 
+/* ── SOIL SENSOR CARDS ── */
+.soil-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.soil-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px 20px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  transition: box-shadow .2s;
+}
+
+.soil-card:hover  { box-shadow: 0 2px 12px rgba(0, 0, 0, .07); }
+.soil-card.kering { border-color: var(--red-border);   background: var(--red-bg); }
+.soil-card.lembab { border-color: #fde68a;             background: #fffbeb; }
+.soil-card.basah  { border-color: var(--green-border); background: var(--green-bg); }
+
+.soil-title {
+  font-size: .85rem;
+  font-weight: 600;
+  color: var(--text);
+  align-self: flex-start;
+}
+
+.soil-art {
+  width: 170px;
+  height: 116px;
+  display: block;
+}
+
+.soil-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  width: 100%;
+}
+
+.soil-state {
+  font-size: .75rem;
+  color: var(--text-2);
+  font-weight: 500;
+}
+
+.soil-badge {
+  padding: 5px 22px;
+  border-radius: 7px;
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.soil-badge.kering { background: #fee2e2; color: var(--red);    border: 1.5px solid var(--red-border); }
+.soil-badge.lembab { background: #fef3c7; color: var(--yellow); border: 1.5px solid #fde68a; }
+.soil-badge.basah  { background: #dcfce7; color: var(--green);  border: 1.5px solid var(--green-border); }
+
 /* ── VALVE CARDS ── */
 .valve-row {
   display: grid;
@@ -259,18 +324,25 @@ main {
   to   { opacity: 1; transform: translateY(0); }
 }
 
-.card, .valve-card { animation: fadeUp .4s ease both; }
+.card, .valve-card, .soil-card { animation: fadeUp .4s ease both; }
 
 .metrics-row .card:nth-child(1) { animation-delay: .04s; }
 .metrics-row .card:nth-child(2) { animation-delay: .08s; }
 .metrics-row .card:nth-child(3) { animation-delay: .12s; }
 .metrics-row .card:nth-child(4) { animation-delay: .16s; }
-.valve-row .valve-card:nth-child(1) { animation-delay: .22s; }
-.valve-row .valve-card:nth-child(2) { animation-delay: .28s; }
+.soil-row .soil-card:nth-child(1) { animation-delay: .20s; }
+.soil-row .soil-card:nth-child(2) { animation-delay: .24s; }
+.soil-row .soil-card:nth-child(3) { animation-delay: .28s; }
+.valve-row .valve-card:nth-child(1) { animation-delay: .32s; }
+.valve-row .valve-card:nth-child(2) { animation-delay: .36s; }
 
 /* ── RESPONSIVE ── */
 @media (max-width: 960px) {
   .metrics-row { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 900px) {
+  .soil-row { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 600px) {
