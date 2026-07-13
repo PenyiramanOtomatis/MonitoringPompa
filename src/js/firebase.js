@@ -27,10 +27,6 @@ export function startFirebaseListener(onDataReceived) {
     console.log("Data Firebase diterima:", data); // untuk debug
 
     onDataReceived({
-      v:       data.tegangan  ?? 0,
-      a:       data.arus      ?? 0,
-      p:       data.daya      ?? 0,
-      pct:     data.dod_pct   ?? 0,
       soil1:   data.soil1     ?? 0,
       soil2:   data.soil2     ?? 0,
       soilAvg: data.soilAvg   ?? 0,

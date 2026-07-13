@@ -177,26 +177,7 @@ export function setSoilSensor(id, pct) {
   badge.textContent = pct.toFixed(0) + '% · ' + status.toUpperCase();
 }
 
-export function updateMetrics(d) {
-  document.getElementById('val-v').innerHTML   = d.v.toFixed(1) + '<span class="unit">V</span>';
-  document.getElementById('val-a').innerHTML   = d.a.toFixed(2) + '<span class="unit">A</span>';
-  document.getElementById('val-p').innerHTML   = d.p.toFixed(0) + '<span class="unit">W</span>';
-  document.getElementById('val-bat').innerHTML = d.pct.toFixed(0) + '<span class="unit">%</span>';
-
-  document.getElementById('batt-fill').style.width = d.pct + '%';
-  document.getElementById('batt-pct').textContent  = d.pct + '%';
-
-  const bb = document.getElementById('batt-badge');
-  if (d.pct < 50) {
-    bb.textContent = '● AMAN';
-    bb.className   = 'badge aman';
-    document.getElementById('batt-fill').style.background = '#16a34a';
-  } else {
-    bb.textContent = '● WASPADA';
-    bb.className   = 'badge waspada';
-    document.getElementById('batt-fill').style.background = '#d97706';
-  }
-
+function updateTimestamp() {
   document.getElementById('ts').textContent =
     'Update: ' + new Date().toLocaleString('id-ID');
 }
@@ -226,10 +207,11 @@ showConnecting();
 
 // Mulai listener Firebase
 startFirebaseListener((data) => {
-  updateMetrics(data);
   data.valve.forEach((isOpen, i) => setValve(i + 1, isOpen));
 
   setSoilSensor('1', data.soil1);
   setSoilSensor('2', data.soil2);
   setSoilSensor('Avg', data.soilAvg);
+
+  updateTimestamp();
 });

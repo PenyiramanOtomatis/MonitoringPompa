@@ -74,114 +74,6 @@ main {
   margin-bottom: 12px;
 }
 
-/* ── METRIC CARDS ── */
-.metrics-row {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-  margin-bottom: 28px;
-}
-
-.card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 20px;
-  transition: box-shadow .2s;
-}
-
-.card:hover {
-  box-shadow: 0 2px 12px rgba(0, 0, 0, .06);
-}
-
-.metric-label {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  font-size: .78rem;
-  font-weight: 500;
-  color: var(--text-2);
-  margin-bottom: 10px;
-}
-
-.metric-icon {
-  width: 22px;
-  height: 22px;
-  border-radius: 6px;
-  background: #eff6ff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  flex-shrink: 0;
-}
-
-.metric-val {
-  font-family: 'DM Mono', monospace;
-  font-size: 2.1rem;
-  font-weight: 500;
-  color: var(--text);
-  line-height: 1;
-}
-
-.metric-val .unit {
-  font-size: .88rem;
-  font-weight: 400;
-  color: var(--text-2);
-  margin-left: 3px;
-}
-
-.metric-sub {
-  font-size: .72rem;
-  color: var(--text-3);
-  margin-top: 7px;
-}
-
-/* ── BATTERY ── */
-.batt-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 9px;
-}
-
-.batt-track {
-  flex: 1;
-  height: 6px;
-  background: #f3f4f6;
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-.batt-fill {
-  height: 100%;
-  border-radius: 4px;
-  background: var(--green);
-  transition: width .8s ease;
-}
-
-.batt-pct {
-  font-family: 'DM Mono', monospace;
-  font-size: .78rem;
-  color: var(--green);
-  white-space: nowrap;
-}
-
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 3px 10px;
-  border-radius: 20px;
-  font-size: .7rem;
-  font-weight: 600;
-  letter-spacing: .04em;
-  margin-top: 8px;
-}
-
-.badge.aman    { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
-.badge.waspada { background: #fffbeb;         color: var(--yellow); border: 1px solid #fde68a; }
-
 /* ── SOIL SENSOR CARDS ── */
 .soil-row {
   display: grid;
@@ -324,28 +216,20 @@ main {
   to   { opacity: 1; transform: translateY(0); }
 }
 
-.card, .valve-card, .soil-card { animation: fadeUp .4s ease both; }
+.valve-card, .soil-card { animation: fadeUp .4s ease both; }
 
-.metrics-row .card:nth-child(1) { animation-delay: .04s; }
-.metrics-row .card:nth-child(2) { animation-delay: .08s; }
-.metrics-row .card:nth-child(3) { animation-delay: .12s; }
-.metrics-row .card:nth-child(4) { animation-delay: .16s; }
-.soil-row .soil-card:nth-child(1) { animation-delay: .20s; }
-.soil-row .soil-card:nth-child(2) { animation-delay: .24s; }
-.soil-row .soil-card:nth-child(3) { animation-delay: .28s; }
-.valve-row .valve-card:nth-child(1) { animation-delay: .32s; }
-.valve-row .valve-card:nth-child(2) { animation-delay: .36s; }
+.soil-row .soil-card:nth-child(1) { animation-delay: .04s; }
+.soil-row .soil-card:nth-child(2) { animation-delay: .08s; }
+.soil-row .soil-card:nth-child(3) { animation-delay: .12s; }
+.valve-row .valve-card:nth-child(1) { animation-delay: .16s; }
+.valve-row .valve-card:nth-child(2) { animation-delay: .20s; }
 
 /* ── RESPONSIVE ── */
-@media (max-width: 960px) {
-  .metrics-row { grid-template-columns: repeat(2, 1fr); }
-}
-
 @media (max-width: 900px) {
   .soil-row { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 600px) {
-  .metrics-row, .valve-row { grid-template-columns: 1fr; }
+  .valve-row { grid-template-columns: 1fr; }
   main { padding: 16px; }
 }
