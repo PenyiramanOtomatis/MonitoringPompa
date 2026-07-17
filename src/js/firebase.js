@@ -26,10 +26,13 @@ export function startFirebaseListener(onDataReceived) {
 
     console.log("Data Firebase diterima:", data); // untuk debug
 
+    const soil1 = data.soil1 ?? 0;
+    const soil2 = data.soil2 ?? 0;
+
     onDataReceived({
-      soil1:   data.soil1     ?? 0,
-      soil2:   data.soil2     ?? 0,
-      soilAvg: data.soil_avg  ?? 0,
+      soil1:   soil1,
+      soil2:   soil2,
+      soilAvg: (soil1 + soil2) / 2,   // dihitung di web, tidak bergantung field dari ESP32
       valve: [
         data.valve1 ?? false,
         data.valve2 ?? false
