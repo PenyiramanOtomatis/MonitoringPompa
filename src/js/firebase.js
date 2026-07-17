@@ -29,7 +29,7 @@ export function startFirebaseListener(onDataReceived) {
     onDataReceived({
       soil1:   data.soil1     ?? 0,
       soil2:   data.soil2     ?? 0,
-      soilAvg: data.soilAvg   ?? 0,
+      soilAvg: data.soil_avg  ?? 0,
       valve: [
         data.valve1 ?? false,
         data.valve2 ?? false
