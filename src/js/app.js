@@ -191,7 +191,7 @@ function showConnecting() {
 }
 
 function showConnected() {
-  // Timestamp ditangani oleh updateMetrics()
+  // Timestamp ditangani oleh updateTimestamp()
 }
 
 // ════════════════════════════════════════════════
@@ -199,7 +199,7 @@ function showConnected() {
 // ════════════════════════════════════════════════
 
 // Render awal soil (0% sampai data masuk)
-['1', '2', 'Avg'].forEach(id => setSoilSensor(id, 0));
+['1', '2'].forEach(id => setSoilSensor(id, 0));
 
 // Render awal valve (semua tertutup sampai data masuk)
 [1, 2].forEach(n => setValve(n, false));
@@ -211,7 +211,6 @@ startFirebaseListener((data) => {
 
   setSoilSensor('1', data.soil1);
   setSoilSensor('2', data.soil2);
-  setSoilSensor('Avg', data.soilAvg);
 
   updateTimestamp();
 });
