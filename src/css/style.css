@@ -77,7 +77,7 @@ main {
 /* ── SOIL SENSOR CARDS ── */
 .soil-row {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 12px;
   margin-bottom: 28px;
 }
@@ -220,16 +220,11 @@ main {
 
 .soil-row .soil-card:nth-child(1) { animation-delay: .04s; }
 .soil-row .soil-card:nth-child(2) { animation-delay: .08s; }
-.soil-row .soil-card:nth-child(3) { animation-delay: .12s; }
-.valve-row .valve-card:nth-child(1) { animation-delay: .16s; }
-.valve-row .valve-card:nth-child(2) { animation-delay: .20s; }
+.valve-row .valve-card:nth-child(1) { animation-delay: .12s; }
+.valve-row .valve-card:nth-child(2) { animation-delay: .16s; }
 
 /* ── RESPONSIVE ── */
-@media (max-width: 900px) {
-  .soil-row { grid-template-columns: 1fr; }
-}
-
 @media (max-width: 600px) {
-  .valve-row { grid-template-columns: 1fr; }
+  .soil-row, .valve-row { grid-template-columns: 1fr; }
   main { padding: 16px; }
 }
